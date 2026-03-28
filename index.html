@@ -51,17 +51,13 @@
         .hero-image { flex: 1; display: flex; justify-content: center; min-width: 300px; }
         .main-photo { 
             width: 350px; 
-            height: 350px; 
+            height: auto; 
+            max-height: 450px;
             border-radius: 30px; 
             border: 5px solid #A7E9C2; 
-            object-fit: contain;  /* GANTI KE CONTAIN */
+            object-fit: contain;
             box-shadow: 0 10px 30px rgba(167, 233, 194, 0.2);
-        }
-        .main-photo {
-            ... (kode lain) ...
-            object-fit: cover;
-            object-position: center bottom; /* TAMBAHIN INI JIKA TETAP PAKAI COVER */
-        }
+        }}
 
         /* Halaman 2: Experience */
         .section-title { font-size: 2.5rem; margin-bottom: 40px; text-align: center; color: #A7E9C2; }
