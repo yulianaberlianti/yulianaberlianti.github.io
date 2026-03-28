@@ -54,8 +54,13 @@
             height: 350px; 
             border-radius: 30px; 
             border: 5px solid #A7E9C2; 
-            object-fit: contain;  /* <--- SEKARANG JADI CONTAIN */
+            object-fit: contain;  /* GANTI KE CONTAIN */
             box-shadow: 0 10px 30px rgba(167, 233, 194, 0.2);
+        }
+        .main-photo {
+            ... (kode lain) ...
+            object-fit: cover;
+            object-position: center bottom; /* TAMBAHIN INI JIKA TETAP PAKAI COVER */
         }
 
         /* Halaman 2: Experience */
