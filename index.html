@@ -18,60 +18,74 @@
         }
 
         .navbar { 
-            position: fixed; width: 100%; padding: 20px; 
-            background: rgba(11, 26, 16, 0.9); z-index: 100; 
-            text-align: center; backdrop-filter: blur(5px);
+            position: fixed; 
+            width: 100%; 
+            padding: 20px; 
+            background: rgba(11, 26, 16, 0.9); 
+            z-index: 100; 
+            text-align: center; 
+            backdrop-filter: blur(5px);
         }
         .nav-links a { color: #A7E9C2; text-decoration: none; margin: 0 20px; font-weight: 600; transition: 0.3s; }
         .nav-links a:hover { color: #fff; }
 
         section { min-height: 100vh; padding: 100px 10%; display: flex; flex-direction: column; justify-content: center; }
 
-        /* Hero Section */
+        /* HERO SECTION */
         .hero-container { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
         .hero-text { flex: 1; min-width: 300px; }
-        .moving-name { font-size: 3.5rem; color: #A7E9C2; animation: float 3s ease-in-out infinite; display: inline-block; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .moving-name { 
+            font-size: 4rem; 
+            color: #A7E9C2; 
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
         .tagline { font-size: 1.2rem; margin: 10px 0; color: #A7E9C2; font-weight: 600; }
         .description-box { margin-top: 20px; line-height: 1.6; max-width: 600px; color: #ccc; }
         
-        /* Foto Profil Fix */
         .hero-image { flex: 1; display: flex; justify-content: center; min-width: 300px; }
         .main-photo { 
-            width: 320px; 
+            width: 100%;
+            max-width: 320px;
             height: auto;
-            aspect-ratio: 3/4; /* Mengikuti proporsi pas foto */
             border-radius: 20px; 
             border: 5px solid #A7E9C2; 
-            object-fit: cover;
             box-shadow: 0 10px 30px rgba(167, 233, 194, 0.2);
+            display: block;
         }
 
-        .section-title { font-size: 2.5rem; margin-bottom: 40px; text-align: center; color: #A7E9C2; }
+        /* SECTION TITLES */
+        .section-title { font-size: 2.5rem; margin-bottom: 20px; text-align: center; color: #A7E9C2; }
+        .category-subtitle { font-size: 1.5rem; margin: 40px 0 20px 0; color: #fff; border-left: 5px solid #A7E9C2; padding-left: 15px; }
 
-        /* Experience Cards */
-        .exp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .exp-card { background: #162d1e; border-radius: 15px; overflow: hidden; transition: 0.3s; border: 1px solid rgba(167, 233, 194, 0.1); padding: 20px; }
-        .exp-card:hover { transform: translateY(-5px); border-color: #A7E9C2; }
-        .org-name { color: #A7E9C2; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Certifications Styling */
-        .cert-category-title { color: #A7E9C2; margin: 40px 0 20px 0; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
-        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .cert-link { text-decoration: none; color: inherit; display: block; }
-        .cert-item { 
-            background: #162d1e; padding: 25px; border-radius: 15px; 
-            border-left: 4px solid #A7E9C2; transition: 0.3s; height: 100%;
+        /* EXPERIENCE & CERTIFICATE GRID */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        
+        .card { 
+            background: #162d1e; 
+            border-radius: 15px; 
+            padding: 25px; 
+            transition: 0.3s; 
+            border: 1px solid rgba(167, 233, 194, 0.1); 
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        .cert-item:hover { background: #1e3a27; transform: translateX(10px); }
-        .cert-date { font-size: 0.8rem; color: #A7E9C2; font-weight: 600; margin-bottom: 5px; display: block; }
-        .cert-item h3 { font-size: 1.1rem; margin-bottom: 8px; line-height: 1.3; }
-        .cert-item p { font-size: 0.85rem; color: #bbb; line-height: 1.5; }
-        .view-label { font-size: 0.75rem; color: #A7E9C2; margin-top: 15px; display: block; font-weight: bold; }
+        .card:hover { transform: translateY(-5px); border-color: #A7E9C2; background: #1e3a27; }
+        
+        .card-icon { font-size: 2rem; color: #A7E9C2; margin-bottom: 10px; }
+        .card h3 { font-size: 1.2rem; color: #fff; }
+        .card .date { font-size: 0.85rem; color: #A7E9C2; font-weight: 600; }
+        .card .issuer { font-size: 0.9rem; color: #ccc; font-style: italic; }
+        .card p { font-size: 0.9rem; color: #bbb; line-height: 1.5; }
 
         @media (max-width: 768px) {
             .hero-container { flex-direction: column-reverse; text-align: center; }
-            .moving-name { font-size: 2.5rem; }
+            .moving-name { font-size: 3rem; }
         }
     </style>
 </head>
@@ -89,94 +103,89 @@
         <div class="hero-container">
             <div class="hero-text">
                 <h1 class="moving-name">Yuliana Berlianti</h1>
-                <p class="tagline">Geomatics Engineering | Remote Sensing & GIS Specialist</p>
+                <p class="tagline">Geomatics Engineering | Remote Sensing & GIS</p>
                 <div class="description-box">
-                    <p>Hi! I’m Yuliana, a Geomatics Engineering student at UPN “Veteran” Yogyakarta. I specialize in satellite data processing, environmental monitoring, and GIS-based storytelling. I love turning spatial data into meaningful insights for sustainable development.</p>
+                    <p>Hi! I’m Yuliana, a Geomatics Engineering student at UPN “Veteran” Yogyakarta. I specialize in satellite data processing and environmental monitoring. With experience in NASA ARSET trainings and GIS-based storytelling, I love turning spatial data into meaningful insights.</p>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="profile.jpg" alt="Foto Yuliana Berlianti" class="main-photo">
+                <img src="Yuliana Berlianti_117230014.jpg" alt="Foto Yuliana" class="main-photo">
             </div>
         </div>
     </section>
 
     <section id="experience">
-        <h2 class="section-title">Experience & Activities</h2>
-        <div class="exp-grid">
-            <div class="exp-card">
-                <span class="org-name">HMTGM UPN "V" Yogyakarta</span>
-                <h3 style="margin-top:10px;">Vice Head of Research & Development</h3>
-                <p style="font-size: 0.9rem; color: #bbb; margin-top:10px;">Managing core academic programs, drone-based mapping initiatives, and technical training for geomatics students.</p>
+        <h2 class="section-title">Organizational Experience</h2>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-users"></i></div>
+                <span class="date">2025 - Present</span>
+                <h3>Vice Head of Research & Development</h3>
+                <span class="issuer">HMTGM UPN "Veteran" Yogyakarta</span>
+                <p>Managing core academic programs, drone-based mapping initiatives, and technical training for geomatics students.</p>
             </div>
-            <div class="exp-card">
-                <span class="org-name">HMTGM Matriculation 2025</span>
-                <h3 style="margin-top:10px;">Mentor Matematika III</h3>
-                <p style="font-size: 0.9rem; color: #bbb; margin-top:10px;">Academic guidance for students in vector algebra, coordinate systems, differential calculus, and differential geometry.</p>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <span class="date">Okt 2025</span>
+                <h3>Mentor Matematika III</h3>
+                <span class="issuer">Matrikulasi HMTGM 2025</span>
+                <p>Providing academic guidance for students in topics like vector algebra, differential calculus, and differential geometry.</p>
             </div>
         </div>
     </section>
 
     <section id="certifications">
-        <h2 class="section-title">My Certifications</h2>
+        <h2 class="section-title">Certifications</h2>
 
-        <h3 class="cert-category-title"><i class="fas fa-satellite"></i> NASA ARSET Programs</h3>
-        <div class="cert-grid">
-            <a href="nasa-stream.pdf" target="_blank" class="cert-link">
-                <div class="cert-item">
-                    <span class="cert-date">Feb 2026</span>
-                    <h3>Water Quality Monitoring - STREAM</h3>
-                    <p>Intermediate training on assessing chlorophyll-a, water clarity, and machine learning for water quality estimation.</p>
-                    <span class="view-label">CLICK TO VIEW PDF <i class="fas fa-external-link-alt"></i></span>
-                </div>
-            </a>
-            <a href="nasa-gedi.pdf" target="_blank" class="cert-link">
-                <div class="cert-item">
-                    <span class="cert-date">Nov 2025</span>
-                    <h3>Spaceborne LiDAR (GEDI)</h3>
-                    <p>Monitoring vegetation structure and aboveground biomass using LiDAR waveform interpretation and data access.</p>
-                    <span class="view-label">CLICK TO VIEW PDF <i class="fas fa-external-link-alt"></i></span>
-                </div>
-            </a>
-            <a href="nasa-lidar.pdf" target="_blank" class="cert-link">
-                <div class="cert-item">
-                    <span class="cert-date">Jun 2025</span>
-                    <h3>LiDAR for Air Quality</h3>
-                    <p>Introduction to LiDAR-based satellite observations for monitoring atmospheric conditions and air quality.</p>
-                    <span class="view-label">CLICK TO VIEW PDF <i class="fas fa-external-link-alt"></i></span>
-                </div>
-            </a>
+        <h3 class="category-subtitle">NASA ARSET Trainings</h3>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-tint"></i></div>
+                <span class="date">Feb 2026</span>
+                <h3>Water Quality Monitoring in Lakes and Coastal Regions Using STREAM</h3>
+                <p>Satellite-based analysis of chlorophyll-a, water clarity, and total suspended solids using Landsat and Sentinel data.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-tree"></i></div>
+                <span class="date">Nov 2025</span>
+                <h3>Spaceborne LiDAR (GEDI) for Monitoring Vegetation</h3>
+                <p>Hands-on experience in GEDI data access, preprocessing, and waveform interpretation for biomass monitoring.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-wind"></i></div>
+                <span class="date">Jun 2025</span>
+                <h3>LiDAR Profiling for Air Quality Applications</h3>
+                <p>Utilizing NASA Earth observation data for monitoring atmospheric conditions and air quality.</p>
+            </div>
         </div>
 
-        <h3 class="cert-category-title"><i class="fas fa-trophy"></i> Competition Awards</h3>
-        <div class="cert-grid">
-            <a href="lomba-mengkarang.pdf" target="_blank" class="cert-link">
-                <div class="cert-item">
-                    <span class="cert-date">Des 2025</span>
-                    <h3>1st Place - Mengkarang Essay</h3>
-                    <p>Geoheritage as renewable social energy through GIS-based Story Mapping (Universitas Jambi).</p>
-                    <span class="view-label">CLICK TO VIEW PDF <i class="fas fa-external-link-alt"></i></span>
-                </div>
-            </a>
-            <a href="lomba-itenas.pdf" target="_blank" class="cert-link">
-                <div class="cert-item">
-                    <span class="cert-date">Des 2024</span>
-                    <h3>3rd Place - Geo Competition ITENAS</h3>
-                    <p>TerraAlert: Digital innovation for landslide risk mitigation in Yogyakarta using geospatial technology.</p>
-                    <span class="view-label">CLICK TO VIEW PDF <i class="fas fa-external-link-alt"></i></span>
-                </div>
-            </a>
+        <h3 class="category-subtitle">Competition Awards</h3>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-medal"></i></div>
+                <span class="date">Des 2025</span>
+                <h3>1st Place - Mengkarang Essay Competition</h3>
+                <span class="issuer">Universitas Jambi</span>
+                <p>Essay: "Fosil dan Geoheritage: Dua Warisan Geologi dan Potensinya sebagai Energi yang Tak Pernah Habis di Yogyakarta".</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-award"></i></div>
+                <span class="date">Des 2024</span>
+                <h3>3rd Place - Geo Competition Essay</h3>
+                <span class="issuer">ITENAS Bandung</span>
+                <p>Essay: "TerraAlert: Inovasi Digital dalam Mitigasi Risiko Tanah Longsor di Yogyakarta".</p>
+            </div>
         </div>
 
-        <h3 class="cert-category-title"><i class="fas fa-language"></i> Language & Soft Skills</h3>
-        <div class="cert-grid">
-            <a href="sertif-kij.pdf" target="_blank" class="cert-link">
-                <div class="cert-item">
-                    <span class="cert-date">Agu 2025</span>
-                    <h3>English Camp Completion</h3>
-                    <p>One-month intensive immersive program at Kampung Inggris Jogja focusing on practical communication skills.</p>
-                    <span class="view-label">CLICK TO VIEW PDF <i class="fas fa-external-link-alt"></i></span>
-                </div>
-            </a>
+        <h3 class="category-subtitle">Language & Others</h3>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-language"></i></div>
+                <span class="date">Agu 2025</span>
+                <h3>English Camp Completion</h3>
+                <span class="issuer">Kampung Inggris Jogja</span>
+                <p>Intensive program focusing on speaking, listening, and practical communication skills through immersive daily sessions.</p>
+            </div>
         </div>
     </section>
 
