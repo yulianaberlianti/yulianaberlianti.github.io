@@ -3,182 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuliana Berlianti | Portfolio</title>
+    <title>Portfolio | Yuliana Berlianti</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* CSS TOOLKIT */
+        /* CSS KAMU YANG SUDAH DIRAPIKAN */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Inter', sans-serif; 
             background: #0b1a10; 
             color: #fff; 
             scroll-behavior: smooth; 
-            overflow-x: hidden;
         }
 
-        /* Navigation */
         .navbar { 
             position: fixed; 
             width: 100%; 
             padding: 20px; 
-            background: rgba(11, 26, 16, 0.95); 
+            background: rgba(11, 26, 16, 0.9); 
             z-index: 100; 
             text-align: center; 
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(167, 233, 194, 0.1);
+            backdrop-filter: blur(5px);
         }
-        .nav-links a { 
-            color: #A7E9C2; 
-            text-decoration: none; 
-            margin: 0 20px; 
-            font-weight: 600; 
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px #A7E9C2; }
+        .nav-links a { color: #A7E9C2; text-decoration: none; margin: 0 20px; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: #fff; }
 
-        section { 
-            min-height: 100vh; 
-            padding: 100px 10%; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-        }
+        section { min-height: 100vh; padding: 100px 10%; display: flex; flex-direction: column; justify-content: center; }
 
-        /* Halaman 1: Hero Section */
-        .hero-container { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between;
-            gap: 50px; 
-        }
-        .hero-text { flex: 1; }
+        /* Halaman 1: Hero */
+        .hero-container { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .hero-text { flex: 1; min-width: 300px; }
         .moving-name { 
-            font-size: 4.5rem; 
+            font-size: 4rem; 
             color: #A7E9C2; 
-            font-weight: 800;
-            line-height: 1.1;
             animation: float 3s ease-in-out infinite;
             display: inline-block;
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
         }
-        .tagline { 
-            font-size: 1.2rem; 
-            margin: 20px 0; 
-            color: #A7E9C2; 
-            font-weight: 600;
-            border-left: 3px solid #A7E9C2;
-            padding-left: 15px;
-        }
-        .description-box { 
-            margin-top: 20px; 
-            line-height: 1.8; 
-            max-width: 600px; 
-            color: #ccc;
-            font-size: 1.05rem;
-        }
-        .hero-image { flex: 1; text-align: right; }
+        .tagline { font-size: 1.2rem; margin: 10px 0; color: #A7E9C2; font-weight: 600; }
+        .description-box { margin-top: 20px; line-height: 1.6; max-width: 600px; color: #ccc; }
+        
+        .hero-image { flex: 1; display: flex; justify-content: center; min-width: 300px; }
         .main-photo { 
-            width: 380px; 
-            height: 480px; 
-            border-radius: 40px; 
-            border: 8px solid #162d1e; 
-            box-shadow: 20px 20px 0px #A7E9C2;
+            width: 350px; 
+            height: 350px; 
+            border-radius: 30px; 
+            border: 5px solid #A7E9C2; 
             object-fit: cover; 
-            transition: 0.5s;
+            box-shadow: 0 10px 30px rgba(167, 233, 194, 0.2);
         }
-        .main-photo:hover { transform: scale(1.02) rotate(-2deg); }
 
-        /* Halaman 2: Experience Section */
-        .section-title { 
-            font-size: 2.8rem; 
-            margin-bottom: 50px; 
-            text-align: left; 
-            color: #A7E9C2; 
-            font-weight: 800;
-        }
-        .exp-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-            gap: 30px; 
-        }
-        .exp-card { 
-            background: #162d1e; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            transition: 0.4s;
-            border: 1px solid rgba(167, 233, 194, 0.1);
-        }
-        .exp-card:hover { 
-            transform: translateY(-10px); 
-            border-color: #A7E9C2;
-        }
-        .exp-img { 
-            width: 100%; 
-            height: 220px; 
-            object-fit: cover; 
-            filter: grayscale(30%);
-            transition: 0.4s;
-        }
-        .exp-card:hover .exp-img { filter: grayscale(0%); }
-        .exp-info { padding: 25px; }
-        .exp-info h3 { font-size: 1.3rem; margin-bottom: 5px; color: #fff; }
-        .org-name { color: #A7E9C2; font-size: 0.95rem; margin-bottom: 15px; font-weight: 600; display: block; }
-        .exp-desc { color: #bbb; line-height: 1.6; font-size: 0.95rem; }
+        /* Halaman 2: Experience */
+        .section-title { font-size: 2.5rem; margin-bottom: 40px; text-align: center; color: #A7E9C2; }
+        .exp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .exp-card { background: #162d1e; border-radius: 15px; overflow: hidden; transition: 0.3s; border: 1px solid rgba(167, 233, 194, 0.1); }
+        .exp-card:hover { transform: scale(1.05); border-color: #A7E9C2; }
+        .exp-img { width: 100%; height: 200px; object-fit: cover; }
+        .exp-info { padding: 20px; }
+        .exp-info h3 { margin-bottom: 5px; font-size: 1.2rem; }
+        .org-name { color: #A7E9C2; font-size: 0.9rem; margin-bottom: 10px; font-weight: 600; display: block; }
+        .exp-desc { font-size: 0.9rem; color: #bbb; line-height: 1.5; }
 
         /* Halaman 3: Certifications */
-        .cert-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
-        }
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .cert-item { 
-            background: linear-gradient(145deg, #162d1e, #0b1a10);
-            padding: 40px 30px; 
-            border-radius: 20px; 
+            background: #162d1e; 
+            padding: 30px; 
+            border-radius: 15px; 
             text-align: center; 
-            border: 1px solid rgba(167, 233, 194, 0.1);
-            position: relative;
+            border-bottom: 4px solid #A7E9C2; 
             transition: 0.3s;
         }
-        .cert-item:hover { background: #1a3a24; }
-        .cert-item::after {
-            content: "";
-            position: absolute;
-            bottom: 0; left: 10%; width: 80%; height: 4px;
-            background: #A7E9C2;
-            border-radius: 10px 10px 0 0;
-        }
-        .cert-icon { font-size: 3rem; color: #A7E9C2; margin-bottom: 20px; }
-        .cert-item h3 { font-size: 1.2rem; margin-bottom: 10px; }
-        .cert-item p { color: #bbb; font-size: 0.9rem; margin-bottom: 15px; }
-        .view-btn {
-            display: inline-block;
-            padding: 8px 18px;
-            border: 1px solid #A7E9C2;
-            color: #A7E9C2;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            transition: 0.3s;
-        }
-        .view-btn:hover { background: #A7E9C2; color: #0b1a10; }
+        .cert-item:hover { transform: translateY(-5px); background: #1e3a27; }
+        .cert-icon { font-size: 2.5rem; color: #A7E9C2; margin-bottom: 15px; }
+        .cert-item h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .cert-item p { font-size: 0.85rem; color: #bbb; }
 
-        /* Responsive */
-        @media (max-width: 968px) {
+        @media (max-width: 768px) {
             .hero-container { flex-direction: column-reverse; text-align: center; }
-            .hero-image { text-align: center; }
-            .main-photo { width: 280px; height: 350px; }
             .moving-name { font-size: 3rem; }
-            .tagline { border-left: none; border-bottom: 3px solid #A7E9C2; padding: 0 0 10px 0; }
         }
     </style>
 </head>
@@ -186,51 +94,44 @@
 
     <nav class="navbar">
         <div class="nav-links">
-            <a href="#home">About</a>
+            <a href="#home">Home</a>
             <a href="#experience">Experience</a>
-            <a href="#certifications">Certifications</a>
+            <a href="#certifications">Certificates</a>
         </div>
     </nav>
 
     <section id="home">
         <div class="hero-container">
             <div class="hero-text">
-                <h1 class="moving-name">Yuliana<br>Berlianti</h1>
-                <p class="tagline">Geomatics Engineering Student | Remote Sensing & GIS</p>
+                <h1 class="moving-name">Yuliana Berlianti</h1>
+                <p class="tagline">Geomatics Engineering | Remote Sensing & GIS</p>
                 <div class="description-box">
-                    <p>
-                        I’m a Geomatics Engineering student at UPN “Veteran” Yogyakarta with a passion for environmental monitoring through Earth observation data. 
-                        With hands-on experience in NASA ARSET trainings and GIS-based storytelling, I bridge the gap between complex spatial data and sustainable solutions.
-                    </p>
+                    <p>Hi! I’m Yuliana, a Geomatics Engineering student at UPN “Veteran” Yogyakarta. I specialize in satellite data processing and environmental monitoring. With experience in NASA ARSET trainings and GIS-based storytelling, I love turning spatial data into meaningful insights.</p>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="profile.jpg" alt="Yuliana Berlianti" class="main-photo">
+                <img src="profile.jpg" alt="Foto Yuliana" class="main-photo">
             </div>
         </div>
     </section>
 
     <section id="experience">
-        <h2 class="section-title">Experience</h2>
+        <h2 class="section-title">Organizational Experience</h2>
         <div class="exp-grid">
             <div class="exp-card">
-                <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=800" alt="HM Teknik Geomatika" class="exp-img">
+                <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=800" class="exp-img">
                 <div class="exp-info">
-                    <h3>Vice Head of Research and Development</h3>
+                    <h3>Vice Head of Research & Development</h3>
                     <span class="org-name">HM Teknik Geomatika UPN "Veteran" Yogyakarta</span>
-                    <p class="exp-desc">
-                        Leading technical workshops, managing drone-based mapping projects, and developing the Geomatics Online Library for academic resources.
-                    </p>
+                    <p class="exp-desc">Managing core academic programs, drone-based mapping initiatives, and technical training for geomatics students.</p>
                 </div>
             </div>
             <div class="exp-card">
-                <img src="https://images.unsplash.com/photo-1504151932400-72d4384f04b3?auto=format&fit=crop&w=800" alt="GSDC" class="exp-img">
+                <img src="https://images.unsplash.com/photo-1504151932400-72d4384f04b3?auto=format&fit=crop&w=800" class="exp-img">
                 <div class="exp-info">
-                    <h3>Staff of Fieldtrip Division</h3>
-                    <span class="org-name">GSDC UPN "Veteran" Yogyakarta</span>
-                    <p class="exp-desc">
-                        Coordinated UAV data acquisition and topographic survey activities. Responsible for field equipment management and spatial data processing.
-                    </p>
+                    <h3>1st Place Winner - Mengkarang 2025</h3>
+                    <span class="org-name">Geoscience Essay Competition</span>
+                    <p class="exp-desc">Developed a GIS-based Story Map visualizing 20 geoheritage sites in Yogyakarta to support sustainable tourism.</p>
                 </div>
             </div>
         </div>
@@ -242,26 +143,23 @@
             <div class="cert-item">
                 <div class="cert-icon"><i class="fas fa-satellite"></i></div>
                 <h3>NASA ARSET</h3>
-                <p>Water Quality Monitoring using STREAM (Lake & Coastal Regions).</p>
-                <a href="#" class="view-btn">View Certificate</a>
+                <p>Water Quality Monitoring in Lakes and Coastal Regions Using STREAM.</p>
             </div>
             <div class="cert-item">
-                <div class="cert-icon"><i class="fas fa-award"></i></div>
-                <h3>1st Place Winner</h3>
-                <p>Mengkarang Competition 2025: Geoheritage & Energy Transition Essay.</p>
-                <a href="https://arcg.is/1rWrOS" target="_blank" class="view-btn">View Project</a>
-            </div>
-            <div class="cert-item">
-                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+                <div class="cert-icon"><i class="fas fa-code"></i></div>
                 <h3>Google Earth Engine</h3>
-                <p>Advanced Spatial Analysis for Methane (CH4) Emission Monitoring.</p>
-                <a href="#" class="view-btn">View Certificate</a>
+                <p>Advanced Spatial Analysis for Environmental Monitoring and Methane Trace.</p>
+            </div>
+            <div class="cert-item">
+                <div class="cert-icon"><i class="fas fa-map-marked-alt"></i></div>
+                <h3>GIS Specialization</h3>
+                <p>Proficiency in ArcGIS, QGIS, and Remote Sensing Data Analysis.</p>
             </div>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px; color: #555; font-size: 0.8rem;">
-        &copy; 2026 Yuliana Berlianti. Built with Passion in Geomatics.
+    <footer style="text-align: center; padding: 50px; color: #555; font-size: 0.8rem;">
+        &copy; 2026 Yuliana Berlianti. Geomatics Engineering UPNVY.
     </footer>
 
 </body>
