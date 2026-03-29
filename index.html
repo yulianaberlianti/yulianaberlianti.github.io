@@ -20,57 +20,61 @@
             text-align: center; border-bottom: 1px solid rgba(167, 233, 194, 0.1);
         }
         .nav-links a { color: var(--primary); text-decoration: none; margin: 0 12px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
-        .nav-links a.active { color: #fff; border-bottom: 2px solid var(--primary); }
+        .nav-links a.active { color: #fff; border-bottom: 2px solid var(--primary); padding-bottom: 4px; }
 
         /* Layout */
         .page-content { display: none; min-height: 100vh; padding: 100px 8% 40px; flex-direction: column; animation: fadeIn 0.4s; }
         .page-content.active { display: flex; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Documentation Slider with Caption */
-        .slider-container { margin-top: 30px; position: relative; }
-        .slider-wrapper { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 15px; scroll-snap-type: x mandatory; }
-        .slider-item { 
-            min-width: 280px; background: var(--card); border-radius: 12px; 
-            overflow: hidden; scroll-snap-align: start; flex-shrink: 0; border: 1px solid #333;
-            cursor: pointer;
-        }
-        .slider-item img { width: 100%; height: 180px; object-fit: cover; }
+        /* Home Layout */
+        .home-grid { display: flex; gap: 40px; align-items: flex-start; margin-bottom: 40px; }
+        .hero-text { flex: 2; }
+        .about-text p { line-height: 1.8; color: #ccc; font-size: 0.95rem; text-align: justify; margin-bottom: 15px; }
+        .hero-image { flex: 1; text-align: center; }
+        .hero-image img { width: 100%; max-width: 200px; border-radius: 50%; border: 4px solid var(--primary); box-shadow: 0 0 20px rgba(167, 233, 194, 0.2); }
+
+        /* Documentation Slider */
+        .slider-wrapper { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 15px; scrollbar-width: thin; scrollbar-color: var(--primary) transparent; }
+        .slider-item { min-width: 260px; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #333; cursor: pointer; }
+        .slider-item img { width: 100%; height: 160px; object-fit: cover; transition: 0.3s; }
+        .slider-item:hover img { transform: scale(1.05); }
         .slider-cap { padding: 12px; }
         .slider-cap h4 { font-size: 0.9rem; color: var(--primary); }
-        .slider-cap p { font-size: 0.75rem; color: #ccc; margin-top: 5px; }
+        .slider-cap p { font-size: 0.75rem; color: #999; margin-top: 5px; }
 
-        /* Sub-Tabs for Certificates */
-        .sub-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
-        .sub-btn { 
-            background: transparent; border: 1px solid var(--primary); color: var(--primary);
-            padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: 0.3s;
-        }
-        .sub-btn.active { background: var(--primary); color: var(--bg); }
-        .cert-group { display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .cert-group.active { display: grid; }
+        /* Sub-Tabs */
+        .sub-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .sub-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: 0.3s; }
+        .sub-btn.active { background: var(--primary); color: var(--bg); font-weight: bold; }
 
-        /* Cards */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 15px; padding: 20px; border: 1px solid rgba(167, 233, 194, 0.1); cursor: pointer; text-decoration: none; color: inherit; }
-        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .card-link { display: inline-block; margin-top: 15px; color: var(--primary); font-size: 0.8rem; text-decoration: underline; }
+        /* Cards & Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: var(--card); border-radius: 15px; padding: 20px; border: 1px solid rgba(167, 233, 194, 0.1); cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
+        .card:hover { transform: translateY(-8px); border-color: var(--primary); }
+        .cert-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; opacity: 0.8; }
+        .card h3 { font-size: 1.1rem; margin-bottom: 10px; color: #fff; }
+        .card p { font-size: 0.8rem; color: #bbb; line-height: 1.5; }
+        .org-logo { width: 60px; height: 60px; border-radius: 10px; margin-bottom: 15px; background: #000; padding: 5px; object-fit: contain; }
 
-        /* Modal / View System */
-        .modal { 
-            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); align-items: center; justify-content: center;
-        }
-        .modal-content { width: 90%; max-width: 900px; height: 80vh; background: #fff; border-radius: 10px; overflow: hidden; position: relative; }
-        .close-modal { position: absolute; top: 10px; right: 20px; font-size: 30px; color: #000; cursor: pointer; z-index: 2100; }
-        
-        .footer-contact { margin-top: auto; padding: 40px 0 20px; text-align: center; border-top: 1px solid rgba(167, 233, 194, 0.1); }
-        .social-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; }
-        .social-links a { color: var(--primary); font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; gap: 5px; }
+        /* Footer Contact (Available on every page) */
+        .footer-contact { margin-top: 60px; padding: 30px 0; text-align: center; border-top: 1px solid rgba(167, 233, 194, 0.1); width: 100%; }
+        .social-links { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 15px; }
+        .social-links a { color: var(--primary); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .social-links a:hover { color: #fff; transform: scale(1.1); }
 
+        /* Modal Viewer */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; }
+        .modal-content { width: 95%; max-width: 1000px; height: 85vh; background: #fff; border-radius: 10px; overflow: hidden; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 25px; font-size: 35px; color: #000; cursor: pointer; z-index: 2100; font-weight: bold; }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .home-grid { display: flex; flex-direction: column-reverse; }
+            .home-grid { flex-direction: column-reverse; text-align: center; }
+            .about-text p { text-align: center; }
+            .hero-image { align-self: center; }
             .nav-links a { margin: 0 5px; font-size: 0.7rem; }
+            .page-content { padding: 90px 5% 30px; }
         }
     </style>
 </head>
@@ -94,85 +98,58 @@
     </nav>
 
     <section id="home" class="page-content active">
-        <div class="home-grid" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px;">
+        <div class="home-grid">
             <div class="hero-text">
-                <h1 style="font-size: 2.5rem; color: var(--primary);">Yuliana Berlianti</h1>
-                <p style="color: #888; font-weight: 600; margin-bottom: 20px;">Geomatics Engineering Student | Remote Sensing & GIS</p>
+                <h1 style="font-size: 2.2rem; color: var(--primary); margin-bottom: 5px;">Yuliana Berlianti</h1>
+                <p style="color: #888; font-weight: 600; margin-bottom: 25px;">Geomatics Engineering Student | Remote Sensing & GIS</p>
                 <div class="about-text">
-                    <p>Hi! Hi! I’m Yuliana, a Geomatics Engineering student at UPN “Veteran” Yogyakarta with a strong interest in remote sensing, GIS, and environmental monitoring.
-I enjoy exploring how Earth observation data can be used to analyze various environmental phenomena and spatial patterns across land, water, and atmospheric domains.
-Through academic projects and NASA ARSET trainings, I have developed hands-on experience in satellite data processing, spatial analysis, and GIS-based visualization.
-I am actively involved in student organizations, where I contribute to research programs, drone-based mapping, and technical training activities.
-Currently, I am open to opportunities in internships, research, and collaborative projects in geospatial and environmental fields.</p>
+                    <p>Hi! I’m Yuliana, a Geomatics Engineering student at UPN “Veteran” Yogyakarta. I have a strong interest in remote sensing, GIS, and environmental monitoring. I enjoy exploring how Earth observation data can be used to analyze various environmental phenomena and spatial patterns across land, water, and atmospheric domains.</p>
+                    <p>Through academic projects and NASA ARSET trainings, I have developed hands-on experience in satellite data processing and spatial analysis. Currently, I am actively involved in student organizations and open to opportunities in internships and collaborative geospatial projects.</p>
                 </div>
                 
-                <h3 style="margin-top: 30px; color: var(--primary);">Field Documentation</h3>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <div class="slider-item" onclick="openImg('Lapangan.jpeg')">
-                            <img src="Lapangan.jpeg" alt="Surveying">
-                            <div class="slider-cap">
-                                <h4>Kemah Kerja</h4>
-                                <p>Pengukuran terestris dan pemetaan situasi di lapangan.</p>
-                            </div>
-                        </div>
-                        <div class="slider-item" onclick="openImg('Mengkarang.jpg')">
-                            <img src="Mengkarang.jpg" alt="Competition">
-                            <div class="slider-cap">
-                                <h4>Mengkarang Competition</h4>
-                                <p>Momen penganugerahan Juara 1 lomba esai nasional.</p>
-                            </div>
-                        </div>
-                        <div class="slider-item" onclick="openImg('Mengkarang.jpg')">
-                            <img src="Lomba.jpg" alt="Competition">
-                            <div class="slider-cap">
-                                <h4>Presentation</h4>
-                                <p>Presentasi poster.</p>
-                            </div>
-                        </div>
-                        <div class="slider-item" onclick="openImg('Lap Drone.jpeg')">
-                            <img src="Lap Drone.jpeg" alt="Drone">
-                            <div class="slider-cap">
-                                <h4>Lapangan Drone</h4>
-                                <p>Akuisisi data foto udara menggunakan UAV di Dusun Kuwang.</p>
-                            </div>
-                        </div>
+                <h3 style="margin-top: 35px; color: var(--primary); font-size: 1.2rem; margin-bottom: 15px;"><i class="fas fa-camera-retro"></i> Field Documentation</h3>
+                <div class="slider-wrapper">
+                    <div class="slider-item" onclick="openImg('Lapangan.jpeg')">
+                        <img src="Lapangan.jpeg" alt="Surveying">
+                        <div class="slider-cap"><h4>Kemah Kerja</h4><p>Pengukuran terestris lapangan.</p></div>
+                    </div>
+                    <div class="slider-item" onclick="openImg('Mengkarang.jpg')">
+                        <img src="Mengkarang.jpg" alt="Award">
+                        <div class="slider-cap"><h4>Mengkarang Comp</h4><p>Juara 1 Esai Nasional.</p></div>
+                    </div>
+                    <div class="slider-item" onclick="openImg('Lap Drone.jpeg')">
+                        <img src="Lap Drone.jpeg" alt="Drone">
+                        <div class="slider-cap"><h4>UAV Survey</h4><p>Akuisisi foto udara di Kuwang.</p></div>
                     </div>
                 </div>
             </div>
-            <div class="hero-image" style="text-align:center;">
-                <img src="profile.jpg" alt="Yuliana" style="width:100%; max-width:280px; border-radius:20px; border:4px solid var(--primary);">
+            <div class="hero-image">
+                <img src="profile.jpg" alt="Yuliana Berlianti">
             </div>
         </div>
-        
-        <div class="footer-contact">
-            <div class="social-links">
-                <a href="https://wa.me/628953358632722" target="_blank"><i class="fab fa-whatsapp"></i> +62-895-3358-632722</a>
-                <a href="mailto:yulianaberlianti150705@gmail.com"><i class="fas fa-envelope"></i> yulianaberlianti150705@gmail.com</a>
-                <a href="https://instagram.com/yulianaberlianti" target="_blank"><i class="fab fa-instagram"></i> @yulianaberlianti</a>
-            </div>
-        </div>
-    </section>
+        <div class="footer-contact-block"></div> </section>
 
     <section id="projects" class="page-content">
-        <h2 style="color: var(--primary); margin-bottom: 30px;">Technical Projects</h2>
+        <h2 style="color: var(--primary); margin-bottom: 30px; border-left: 4px solid var(--primary); padding-left: 15px;">Technical Projects</h2>
         <div class="grid">
-            <div class="card">
+            <div class="card" onclick="window.open('https://arcg.is/1rWrOS', '_blank')">
+                <div class="cert-icon"><i class="fas fa-map-marked-alt"></i></div>
                 <h3>StoryMap Geoheritage</h3>
-                <p style="font-size: 0.8rem; color: #ccc; margin: 10px 0;">Visualisasi 20 situs warisan geologi Yogyakarta melalui peta interaktif.</p>
-                <a href=" https://arcg.is/1rWrOS" target="_blank" class="card-link">Buka StoryMap <i class="fas fa-external-link-alt"></i></a>
+                <p>Interactive visualization of 20 geoheritage sites in Yogyakarta as renewable energy for knowledge.</p>
+                <span class="card-link" style="color:var(--primary); font-size:0.75rem; margin-top:10px; display:block;">Visit StoryMap <i class="fas fa-arrow-right"></i></span>
             </div>
-            <div class="card">
-                <h3>GEE Fire Severity (NBR)</h3>
-                <p style="font-size: 0.8rem; color: #ccc; margin: 10px 0;">Analisis tingkat keparahan kebakaran menggunakan script Google Earth Engine.</p>
-                <a href="https://code.earthengine.google.com/19f831291b20a0d0925a679eb8452dfd" target="_blank" class="card-link">Lihat Script GEE <i class="fas fa-code"></i></a>
+            <div class="card" onclick="window.open('https://code.earthengine.google.com/19f831291b20a0d0925a679eb8452dfd', '_blank')">
+                <div class="cert-icon"><i class="fas fa-fire"></i></div>
+                <h3>GEE Fire Severity</h3>
+                <p>Processing Sentinel-2 imagery for burn severity index (NBR & dNBR) analysis via Google Earth Engine.</p>
+                <span class="card-link" style="color:var(--primary); font-size:0.75rem; margin-top:10px; display:block;">View GEE Code <i class="fas fa-code"></i></span>
             </div>
         </div>
+        <div class="footer-contact-block"></div>
     </section>
 
     <section id="certifications" class="page-content">
-        <h2 style="color: var(--primary); margin-bottom: 20px;">Certifications</h2>
-        
+        <h2 style="color: var(--primary); margin-bottom: 25px;">Professional Certifications</h2>
         <div class="sub-nav">
             <button class="sub-btn active" onclick="filterCert('nasa')">NASA ARSET</button>
             <button class="sub-btn" onclick="filterCert('lomba')">Awards</button>
@@ -181,61 +158,85 @@ Currently, I am open to opportunities in internships, research, and collaborativ
 
         <div id="nasa" class="cert-group active">
             <div class="card" onclick="openPDF('ARSET CERTIFICATE - GEDI_62.pdf')">
+                <div class="cert-icon"><i class="fas fa-satellite-dish"></i></div>
                 <h3>GEDI LiDAR Training</h3>
-                <p>Spaceborne LiDAR for Monitoring Vegetation.</p>
+                <p>NASA ARSET: Spaceborne LiDAR for Vegetation Monitoring.</p>
             </div>
             <div class="card" onclick="openPDF('ARSET CERTIFICATE - STREAM_391.pdf')">
+                <div class="cert-icon"><i class="fas fa-tint"></i></div>
                 <h3>STREAM Water Quality</h3>
-                <p>NASA ARSET Training experience.</p>
-            </div>
-            <div class="card" onclick="openPDF('ARSET CERTIFICATE - Lidar_387.pdf')">
-                <h3>Air Quality Application</h3>
-                <p>NASA ARSET Training experience.</p>
+                <p>Remote Sensing for Water Quality monitoring.</p>
             </div>
         </div>
 
         <div id="lomba" class="cert-group">
-            <div class="card" onclick="openPDF('lomba-mengkarang.pdf')">
-                <h3>Juara 1 Mengkarang 2025</h3>
-                <p>Esai Nasional: Fosil dan Geoheritage.</p>
+            <div class="card" onclick="openPDF('Sertifikat pemenang lomba.pdf')">
+                <div class="cert-icon"><i class="fas fa-trophy"></i></div>
+                <h3>1st Winner Mengkarang</h3>
+                <p>National Essay Competition 2025 - Geoheritage Theme.</p>
             </div>
         </div>
 
         <div id="bahasa" class="cert-group">
-            <div class="card" onclick="openPDF('sertif-kij.pdf')">
+            <div class="card" onclick="openPDF('kij.pdf')">
+                <div class="cert-icon"><i class="fas fa-language"></i></div>
                 <h3>English Camp - KIJ</h3>
-                <p>Kampung Inggris English Proficiency.</p>
+                <p>Certificate of English Proficiency from Kampung Inggris.</p>
             </div>
         </div>
+        <div class="footer-contact-block"></div>
     </section>
 
     <section id="organization" class="page-content">
         <h2 style="color: var(--primary); margin-bottom: 30px;">Organizational Experience</h2>
         <div class="grid">
             <div class="card">
-                <img src="hmtgm-logo.jpg" alt="HMTGM">
+                <img src="hmtgm-logo.jpg" class="org-logo" alt="HMTGM">
                 <h3>Vice Head of R&D - HMTGM</h3>
-                <p style="font-size: 0.8rem; color: #ccc;">Mengelola program Library Geomatika dan pelatihan instrumen survey.</p>
+                <p>Managing research programs, drone training, and technical geomatics library.</p>
             </div>
             <div class="card">
-                <img src="gsdc-logo.jpg" alt="GSDC">
+                <img src="gsdc-logo.jpg" class="org-logo" alt="GSDC">
                 <h3>Fieldtrip Staff - GSDC</h3>
-                <p style="font-size: 0.8rem; color: #ccc;">PJ Program Lapangan Drone dan pengolahan data fotogrametri.</p>
+                <p>Supervising drone-based photogrammetry and field mapping projects.</p>
             </div>
             <div class="card">
-                <img src="dem-logo.jpg" alt="DEM">
+                <img src="dem-logo.jpg" class="org-logo" alt="DEM">
                 <h3>HRD Staff - DEM UPNVY</h3>
-                <p style="font-size: 0.8rem; color: #ccc;">Manajemen performa 92 anggota melalui laporan bulanan.</p>
+                <p>Administering internal performance reports and human resources management.</p>
             </div>
         </div>
+        <div class="footer-contact-block"></div>
     </section>
 
+    <div id="common-footer" style="display:none;">
+        <div class="footer-contact">
+            <p style="font-size: 0.75rem; color: #555; margin-bottom: 10px; letter-spacing: 1px;">GET IN TOUCH</p>
+            <div class="social-links">
+                <a href="https://wa.me/628953358632722" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://www.linkedin.com/in/yuliana-berlianti-36810628b" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                <a href="mailto:yulianaberlianti150705@gmail.com"><i class="far fa-envelope"></i> Email</a>
+                <a href="https://instagram.com/yulianaberlianti" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>
+            <p style="margin-top: 25px; font-size: 0.7rem; color: #333;">&copy; 2026 Yuliana Berlianti. All Rights Reserved.</p>
+        </div>
+    </div>
+
     <script>
+        // Insert footer into every section
+        document.addEventListener("DOMContentLoaded", function() {
+            const footerHtml = document.getElementById('common-footer').innerHTML;
+            document.querySelectorAll('.footer-contact-block').forEach(div => {
+                div.innerHTML = footerHtml;
+            });
+        });
+
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
             document.getElementById('link-' + pageId).classList.add('active');
+            window.scrollTo(0,0);
         }
 
         function filterCert(groupId) {
@@ -245,7 +246,6 @@ Currently, I am open to opportunities in internships, research, and collaborativ
             event.target.classList.add('active');
         }
 
-        // Modal Viewer Functions
         const viewer = document.getElementById('viewer');
         const frame = document.getElementById('frame-view');
         const imgView = document.getElementById('img-view');
