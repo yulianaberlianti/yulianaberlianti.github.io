@@ -27,33 +27,24 @@
         .page-content.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- PERBAIKAN HOME LAYOUT --- */
-        .home-grid { display: grid; grid-template-columns: 1.8fr 1fr; gap: 40px; align-items: center; }
-        .about-text { line-height: 1.8; color: #ccc; font-size: 0.95rem; text-align: justify; }
-        
-        /* Container foto agar tetap stabil */
-        .hero-image { display: flex; justify-content: center; align-items: center; }
-        
-        /* Foto profil proporsional */
-        .hero-image img { 
-            width: 100%; 
-            max-width: 250px; 
-            aspect-ratio: 1 / 1; /* Memaksa bingkai tetap persegi */
-            object-fit: cover;   /* Memastikan foto tidak tertarik/gepeng */
-            border-radius: 20px; /* Sudut melengkung yang lebih modern */
-            border: 4px solid var(--primary); 
-            box-shadow: 0 0 20px rgba(167, 233, 194, 0.2); 
-            transition: 0.3s; 
-        }
-        .hero-image img:hover { transform: scale(1.05); }
+        /* Home Layout (No Profile Image) */
+        .hero-text { max-width: 900px; margin: 0 auto; width: 100%; }
+        .about-text { line-height: 1.8; color: #ccc; font-size: 1rem; text-align: justify; margin-bottom: 30px; }
 
         /* Slider */
         .slider-wrapper { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 15px; scroll-snap-type: x mandatory; margin-top: 15px; }
-        .slider-item { min-width: 260px; background: var(--card); border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid #333; cursor: pointer; }
+        .slider-item { min-width: 260px; background: var(--card); border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid #333; cursor: pointer; transition: 0.3s; }
+        .slider-item:hover { border-color: var(--primary); }
         .slider-item img { width: 100%; height: 160px; object-fit: cover; }
         .slider-cap { padding: 12px; }
         .slider-cap h4 { font-size: 0.85rem; color: var(--primary); }
         .slider-cap p { font-size: 0.75rem; color: #999; }
+
+        /* Grid & Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border-radius: 15px; padding: 25px; border: 1px solid rgba(167, 233, 194, 0.1); transition: 0.3s; position: relative; overflow: hidden; }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .cert-icon { font-size: 2.5rem; color: var(--primary); opacity: 0.3; position: absolute; right: 15px; bottom: 15px; }
 
         /* Certificates Visual */
         .sub-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
@@ -61,10 +52,6 @@
         .sub-btn.active { background: var(--primary); color: var(--bg); font-weight: bold; }
         .cert-group { display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .cert-group.active { display: grid; }
-        
-        .card { background: var(--card); border-radius: 15px; padding: 25px; border: 1px solid rgba(167, 233, 194, 0.1); transition: 0.3s; position: relative; overflow: hidden; }
-        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .cert-icon { font-size: 2.5rem; color: var(--primary); opacity: 0.3; position: absolute; right: 15px; bottom: 15px; }
 
         /* Organization Icons */
         .org-logo { width: 70px; height: 70px; border-radius: 50%; background: #fff; padding: 5px; margin-bottom: 15px; object-fit: contain; }
@@ -82,14 +69,10 @@
         .modal-content { width: 90%; max-width: 1000px; height: 85vh; background: #fff; border-radius: 10px; overflow: hidden; position: relative; }
         .close-modal { position: absolute; top: 10px; right: 20px; font-size: 30px; color: #000; cursor: pointer; z-index: 2100; }
 
-        /* Responsive Mobile */
         @media (max-width: 768px) {
-            .home-grid { grid-template-columns: 1fr; text-align: center; gap: 20px; }
-            .hero-image { order: -1; }
-            .hero-image img { max-width: 180px; } /* Ukuran lebih pas di HP */
-            .about-text { text-align: justify; }
             .footer-grid { flex-direction: column; text-align: center; }
             .nav-links a { margin: 0 5px; font-size: 0.7rem; }
+            .about-text { text-align: center; }
         }
     </style>
 </head>
@@ -112,43 +95,39 @@
     </nav>
 
     <section id="home" class="page-content active">
-        <div class="home-grid">
-            <div class="hero-text">
-                <h1 style="font-size: 2.8rem; color: var(--primary); margin-bottom: 5px;">Yuliana Berlianti</h1>
-                <p style="color: #888; font-weight: 600; margin-bottom: 20px;">Geomatics Engineering Student | Remote Sensing & GIS</p>
-                <div class="about-text">
-                    <p>Hi! I’m Yuliana, a Geomatics Engineering student at UPN “Veteran” Yogyakarta with a strong interest in remote sensing, GIS, and environmental monitoring. I enjoy exploring how Earth observation data can be used to analyze various environmental phenomena and spatial patterns across land, water, and atmospheric domains. Through academic projects and NASA ARSET trainings, I have developed hands-on experience in satellite data processing, spatial analysis, and GIS-based visualization.</p>
-                </div>
-                
-                <h3 style="margin-top: 30px; color: var(--primary); font-size: 1.1rem;"><i class="fas fa-camera"></i> Field Documentation</h3>
-                <div class="slider-wrapper">
-                    <div class="slider-item" onclick="openFull('Lapangan.jpeg')">
-                        <img src="Lapangan.jpeg" alt="Surveying">
-                        <div class="slider-cap"><h4>Kemah Kerja</h4><p>Pengukuran situasi di lapangan.</p></div>
-                    </div>
-                    <div class="slider-item" onclick="openFull('Mengkarang.jpg')">
-                        <img src="Mengkarang.jpg" alt="Awards">
-                        <div class="slider-cap"><h4>Competition</h4><p>Penganugerahan Juara 1 Mengkarang Competition.</p></div>
-                    </div>
-                    <div class="slider-item" onclick="openFull('Lomba.jpg')">
-                        <img src="Lomba.jpg" alt="Presentation">
-                        <div class="slider-cap"><h4>Presentation</h4><p>Presentasi poster.</p></div>
-                    </div>
-                    <div class="slider-item" onclick="openFull('Lap Drone.jpeg')">
-                        <img src="Lap Drone.jpeg" alt="Drone">
-                        <div class="slider-cap"><h4>Drone Survey</h4><p>Akuisisi data foto udara UAV.</p></div>
-                    </div>
-                </div>
+        <div class="hero-text">
+            <h1 style="font-size: 3rem; color: var(--primary); margin-bottom: 5px;">Yuliana Berlianti</h1>
+            <p style="color: #888; font-weight: 600; margin-bottom: 25px; font-size: 1.1rem;">Geomatics Engineering Student | Remote Sensing & GIS</p>
+            
+            <div class="about-text">
+                <p>Hi! I’m Yuliana, a Geomatics Engineering student at UPN “Veteran” Yogyakarta with a strong interest in remote sensing, GIS, and environmental monitoring. I enjoy exploring how Earth observation data can be used to analyze various environmental phenomena and spatial patterns across land, water, and atmospheric domains. Through academic projects and NASA ARSET trainings, I have developed hands-on experience in satellite data processing, spatial analysis, and GIS-based visualization.</p>
             </div>
-            <div class="hero-image">
-                <img src="profile.jpg" alt="Yuliana Berlianti">
+            
+            <h3 style="margin-top: 30px; color: var(--primary); font-size: 1.1rem;"><i class="fas fa-camera"></i> Field Documentation</h3>
+            <div class="slider-wrapper">
+                <div class="slider-item" onclick="openFull('Lapangan.jpeg')">
+                    <img src="Lapangan.jpeg" alt="Surveying">
+                    <div class="slider-cap"><h4>Kemah Kerja</h4><p>Pengukuran situasi di lapangan.</p></div>
+                </div>
+                <div class="slider-item" onclick="openFull('Mengkarang.jpg')">
+                    <img src="Mengkarang.jpg" alt="Awards">
+                    <div class="slider-cap"><h4>Competition</h4><p>Penganugerahan Juara 1 Mengkarang Competition.</p></div>
+                </div>
+                <div class="slider-item" onclick="openFull('Lomba.jpg')">
+                    <img src="Lomba.jpg" alt="Presentation">
+                    <div class="slider-cap"><h4>Presentation</h4><p>Presentasi poster.</p></div>
+                </div>
+                <div class="slider-item" onclick="openFull('Lap Drone.jpeg')">
+                    <img src="Lap Drone.jpeg" alt="Drone">
+                    <div class="slider-cap"><h4>Drone Survey</h4><p>Akuisisi data foto udara UAV.</p></div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="projects" class="page-content">
         <h2 style="color: var(--primary); margin-bottom: 30px;">Technical Projects</h2>
-        <div class="cert-group active" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <div class="grid">
             <div class="card" style="cursor: default;">
                 <i class="fas fa-map-marked-alt cert-icon"></i>
                 <h3>StoryMap Geoheritage</h3>
@@ -193,8 +172,8 @@
         <div id="lomba" class="cert-group">
             <div class="card" onclick="openFull('Sertifikat pemenang lomba.pdf')">
                 <i class="fas fa-trophy cert-icon"></i>
-                <h3>1st Place – Essay Competition</h3>
-                <p style="font-size: 0.8rem; color: #999;">Mengkarang Competition 2025.</p>
+                <h3>1st Place – Essay Competition (Mengkarang 2025)</h3>
+                <p style="font-size: 0.8rem; color: #999;">Lomba Esai Nasional.</p>
             </div>
             <div class="card" onclick="openFull('Juara 3_Essai ITENAS Bandung_Yulianan Berlianti.pdf')">
                 <i class="fas fa-trophy cert-icon"></i>
@@ -207,23 +186,28 @@
             <div class="card" onclick="openFull('kij.pdf')">
                 <i class="fas fa-language cert-icon"></i>
                 <h3>English Camp - KIJ</h3>
-                <p style="font-size: 0.8rem; color: #999;">English Proficiency Certificate.</p>
+                <p style="font-size: 0.8rem; color: #999;">English Camp Certificate.</p>
             </div>
         </div>
     </section>
 
     <section id="organization" class="page-content">
         <h2 style="color: var(--primary); margin-bottom: 30px;">Organizational Experience</h2>
-        <div class="cert-group active" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <div class="grid">
             <div class="card" style="cursor: default;">
                 <img src="LOGO PRODI.png" alt="HMTGM" class="org-logo">
                 <h3>Vice Head of R&D - HMTGM</h3>
-                <p style="font-size: 0.85rem; color: #ccc;">Supported the Head of Research and Development Division in managing core programs including survey instrument training.</p>
+                <p style="font-size: 0.85rem; color: #ccc;">Supported the Head of Research and Development Division in managing core programs, library development, and survey training.</p>
             </div>
             <div class="card" style="cursor: default;">
                 <img src="LOGO GSDC.png" alt="GSDC" class="org-logo">
                 <h3>Fieldtrip Staff - GSDC</h3>
-                <p style="font-size: 0.85rem; color: #ccc;">Responsible for coordinating drone-based field activities and UAV aerial data acquisition.</p>
+                <p style="font-size: 0.85rem; color: #ccc;">Coordinated drone-based activities and photogrammetric data processing workshops.</p>
+            </div>
+            <div class="card" style="cursor: default;">
+                <img src="LOGO DEM.png" alt="DEM" class="org-logo">
+                <h3>Staff of Human Resource Development (HRD) - DEM</h3>
+                <p style="font-size: 0.85rem; color: #ccc;">Responsible for managing and compiling monthly performance reports for 92 members, including both the executive board (BPH) and staff, to monitor participation, discipline, and task completion.</p>
             </div>
         </div>
     </section>
