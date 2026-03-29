@@ -9,55 +9,80 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        :root { --primary: #A7E9C2; --bg: #0b1a10; --card: #162d1e; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0b1a10; color: #fff; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: #fff; overflow-x: hidden; }
 
+        /* Navbar */
         .navbar { 
             position: fixed; width: 100%; padding: 15px; 
             background: rgba(11, 26, 16, 0.98); z-index: 1000; 
             text-align: center; border-bottom: 1px solid rgba(167, 233, 194, 0.1);
         }
-        .nav-links a { color: #A7E9C2; text-decoration: none; margin: 0 12px; font-weight: 600; cursor: pointer; font-size: 0.85rem; transition: 0.3s; }
-        .nav-links a.active { color: #fff; border-bottom: 2px solid #A7E9C2; padding-bottom: 5px; }
+        .nav-links a { color: var(--primary); text-decoration: none; margin: 0 12px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
+        .nav-links a.active { color: #fff; border-bottom: 2px solid var(--primary); }
 
-        .page-content { 
-            display: none; min-height: 100vh; padding: 100px 10% 40px; 
-            flex-direction: column; animation: fadeIn 0.4s ease-in-out;
-        }
+        /* Layout */
+        .page-content { display: none; min-height: 100vh; padding: 100px 8% 40px; flex-direction: column; animation: fadeIn 0.4s; }
         .page-content.active { display: flex; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .home-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: start; }
-        .hero-image img { width: 100%; border-radius: 20px; border: 4px solid #A7E9C2; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .about-text { line-height: 1.7; color: #ccc; font-size: 0.95rem; }
+        /* Documentation Slider with Caption */
+        .slider-container { margin-top: 30px; position: relative; }
+        .slider-wrapper { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 15px; scroll-snap-type: x mandatory; }
+        .slider-item { 
+            min-width: 280px; background: var(--card); border-radius: 12px; 
+            overflow: hidden; scroll-snap-align: start; flex-shrink: 0; border: 1px solid #333;
+            cursor: pointer;
+        }
+        .slider-item img { width: 100%; height: 180px; object-fit: cover; }
+        .slider-cap { padding: 12px; }
+        .slider-cap h4 { font-size: 0.9rem; color: var(--primary); }
+        .slider-cap p { font-size: 0.75rem; color: #ccc; margin-top: 5px; }
 
-        .slider-wrapper { display: flex; overflow-x: auto; gap: 15px; margin-top: 20px; padding-bottom: 10px; scrollbar-width: thin; }
-        .slider-item { min-width: 220px; height: 150px; background: #162d1e; border-radius: 10px; overflow: hidden; flex-shrink: 0; border: 1px solid #333; }
-        .slider-item img { width: 100%; height: 100%; object-fit: cover; }
+        /* Sub-Tabs for Certificates */
+        .sub-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .sub-btn { 
+            background: transparent; border: 1px solid var(--primary); color: var(--primary);
+            padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: 0.3s;
+        }
+        .sub-btn.active { background: var(--primary); color: var(--bg); }
+        .cert-group { display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .cert-group.active { display: grid; }
 
-        .section-title { font-size: 2rem; color: #A7E9C2; margin-bottom: 30px; border-bottom: 2px solid #162d1e; display: inline-block; }
+        /* Cards */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: #162d1e; border-radius: 15px; padding: 20px; border: 1px solid rgba(167, 233, 194, 0.1); transition: 0.3s; text-decoration: none; color: inherit; }
-        .card:hover { transform: translateY(-5px); border-color: #A7E9C2; }
-        .card img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; background: #0b1a10; }
-        
-        .sub-category { font-size: 1.3rem; color: #fff; margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
+        .card { background: var(--card); border-radius: 15px; padding: 20px; border: 1px solid rgba(167, 233, 194, 0.1); cursor: pointer; text-decoration: none; color: inherit; }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .card-link { display: inline-block; margin-top: 15px; color: var(--primary); font-size: 0.8rem; text-decoration: underline; }
 
-        /* Footer & Contact Section */
-        .footer-contact { margin-top: auto; padding: 40px 0 20px; text-align: center; border-top: 1px solid rgba(167, 233, 194, 0.05); }
-        .social-links { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 15px; }
-        .social-links a { color: #A7E9C2; font-size: 1.4rem; transition: 0.3s; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
-        .social-links a i { font-size: 1.3rem; }
-        .social-links a:hover { color: #fff; }
+        /* Modal / View System */
+        .modal { 
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.9); align-items: center; justify-content: center;
+        }
+        .modal-content { width: 90%; max-width: 900px; height: 80vh; background: #fff; border-radius: 10px; overflow: hidden; position: relative; }
+        .close-modal { position: absolute; top: 10px; right: 20px; font-size: 30px; color: #000; cursor: pointer; z-index: 2100; }
+        
+        .footer-contact { margin-top: auto; padding: 40px 0 20px; text-align: center; border-top: 1px solid rgba(167, 233, 194, 0.1); }
+        .social-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; }
+        .social-links a { color: var(--primary); font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; gap: 5px; }
 
         @media (max-width: 768px) {
-            .home-grid { grid-template-columns: 1fr; text-align: center; }
+            .home-grid { display: flex; flex-direction: column-reverse; }
             .nav-links a { margin: 0 5px; font-size: 0.7rem; }
-            .social-links { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
 <body>
+
+    <div id="viewer" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeViewer()">&times;</span>
+            <iframe id="frame-view" src="" style="width:100%; height:100%; border:none;"></iframe>
+            <img id="img-view" src="" style="width:100%; height:100%; object-fit:contain; display:none;">
+        </div>
+    </div>
 
     <nav class="navbar">
         <div class="nav-links">
@@ -69,109 +94,127 @@
     </nav>
 
     <section id="home" class="page-content active">
-        <div class="home-grid">
+        <div class="home-grid" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px;">
             <div class="hero-text">
-                <h1 style="font-size: 2.8rem; color: #A7E9C2; margin-bottom: 5px;">Yuliana Berlianti</h1>
-                <p style="font-size: 1.1rem; font-weight: 600; color: #888; margin-bottom: 20px;">Geomatics Engineering Student | Remote Sensing & GIS</p>
+                <h1 style="font-size: 2.5rem; color: var(--primary);">Yuliana Berlianti</h1>
+                <p style="color: #888; font-weight: 600; margin-bottom: 20px;">Geomatics Engineering Student | Remote Sensing & GIS</p>
                 <div class="about-text">
-                    <p>Hi! I’m Yuliana, a Geomatics Engineering student at UPN “Veteran” Yogyakarta with a strong interest in remote sensing, GIS, and environmental monitoring.
-I enjoy exploring how Earth observation data can be used to analyze various environmental phenomena and spatial patterns across land, water, and atmospheric domains.
-Through academic projects and NASA ARSET trainings, I have developed hands-on experience in satellite data processing, spatial analysis, and GIS-based visualization.
-I am actively involved in student organizations, where I contribute to research programs, drone-based mapping, and technical training activities.
-Currently, I am open to opportunities in internships, research, and collaborative projects in geospatial and environmental fields.</p>
+                    <p>Hi! I’m Yuliana, a Geomatics Engineering student at UPN “Veteran” Yogyakarta. I focus on how Earth observation data analyzes environmental phenomena across land, water, and atmospheric domains.</p>
                 </div>
                 
-                <h3 style="margin-top: 30px; color: #A7E9C2;">Field Documentation</h3>
-                <div class="slider-wrapper">
-                    <div class="slider-item"><img src="Lapangan.jpeg" alt="Kemah Kerja"></div>
-                    <div class="slider-item"><img src="Mengkarang.jpg" alt="Mengkarang Competition"></div>
-                    <div class="slider-item"><img src="Lomba.jpg" alt="Presentation"></div>
-                    <div class="slider-item"><img src="Lap drone.jpeg" alt="Lapangan Drone"></div>
+                <h3 style="margin-top: 30px; color: var(--primary);">Field Documentation</h3>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slider-item" onclick="openImg('Lapangan.jpeg')">
+                            <img src="Lapangan.jpeg" alt="Surveying">
+                            <div class="slider-cap">
+                                <h4>Kemah Kerja</h4>
+                                <p>Pengukuran terestris dan pemetaan situasi di lapangan.</p>
+                            </div>
                         </div>
+                        <div class="slider-item" onclick="openImg('Mengkarang.jpg')">
+                            <img src="Mengkarang.jpg" alt="Competition">
+                            <div class="slider-cap">
+                                <h4>Mengkarang Competition</h4>
+                                <p>Momen penganugerahan Juara 1 lomba esai nasional.</p>
+                            </div>
+                        </div>
+                        <div class="slider-item" onclick="openImg('Lap Drone.jpeg')">
+                            <img src="Lap Drone.jpeg" alt="Drone">
+                            <div class="slider-cap">
+                                <h4>Lapangan Drone</h4>
+                                <p>Akuisisi data foto udara menggunakan UAV di Kuwang.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="hero-image">
-                <img src="profile.jpg" alt="Yuliana Berlianti">
+            <div class="hero-image" style="text-align:center;">
+                <img src="profile.jpg" alt="Yuliana" style="width:100%; max-width:280px; border-radius:20px; border:4px solid var(--primary);">
             </div>
         </div>
         
         <div class="footer-contact">
-            <p style="color: #666; font-size: 0.8rem; margin-bottom: 10px;">Connect with me</p>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/yuliana-berlianti-36810628b" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="https://instagram.com/yulianaberlianti" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="mailto:yulianaberlianti150705@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-                <a href="https://wa.me/628953358632722" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://wa.me/628953358632722" target="_blank"><i class="fab fa-whatsapp"></i> +62-895-3358-632722</a>
+                <a href="mailto:yulianaberlianti150705@gmail.com"><i class="fas fa-envelope"></i> yulianaberlianti150705@gmail.com</a>
+                <a href="https://instagram.com/yulianaberlianti" target="_blank"><i class="fab fa-instagram"></i> @yulianaberlianti</a>
             </div>
         </div>
     </section>
 
     <section id="projects" class="page-content">
-        <h2 class="section-title">Technical Projects</h2>
+        <h2 style="color: var(--primary); margin-bottom: 30px;">Technical Projects</h2>
         <div class="grid">
-            <a href="https://arcg.is/1rWrOS" target="_blank" class="card">
-                <img src="storymap-thumb.jpg" alt="StoryMap Preview">
-                <span style="font-size: 0.7rem; color: #A7E9C2; font-weight: bold;">ArcGIS StoryMap</span>
-                <h3>Geoheritage Yogyakarta</h3>
-                <p style="font-size: 0.85rem; color: #bbb; margin-top: 10px;">Visualizing 20 geoheritage sites in Yogyakarta as a form of renewable social and knowledge-based energy.</p>
-            </a>
             <div class="card">
-                <img src="gee-nbr-thumb.jpg" alt="GEE Preview">
-                <span style="font-size: 0.7rem; color: #A7E9C2; font-weight: bold;">Google Earth Engine</span>
-                <h3>Fire Severity (NBR & dNBR)</h3>
-                <p style="font-size: 0.85rem; color: #bbb; margin-top: 10px;">Processing Sentinel-2 imagery to identify vegetation loss and burn severity using spectral index comparison.</p>
+                <h3>StoryMap Geoheritage</h3>
+                <p style="font-size: 0.8rem; color: #ccc; margin: 10px 0;">Visualisasi 20 situs warisan geologi Yogyakarta melalui peta interaktif.</p>
+                <a href="https://arcg.is/1rWrOS" target="_blank" class="card-link">Buka StoryMap <i class="fas fa-external-link-alt"></i></a>
+            </div>
+            <div class="card">
+                <h3>GEE Fire Severity (NBR)</h3>
+                <p style="font-size: 0.8rem; color: #ccc; margin: 10px 0;">Analisis tingkat keparahan kebakaran menggunakan script Google Earth Engine.</p>
+                <a href="https://code.earthengine.google.com/" target="_blank" class="card-link">Lihat Script GEE <i class="fas fa-code"></i></a>
             </div>
         </div>
     </section>
 
     <section id="certifications" class="page-content">
-        <h2 class="section-title">Certifications</h2>
-
-        <h3 class="sub-category"><i class="fas fa-satellite"></i> NASA ARSET</h3>
-        <div class="grid">
-            <a href="ARSET CERTIFICATE - STREAM_391.pdf" target="_blank" class="card">
-                <img src="preview-stream.jpg" alt="STREAM Preview">
-                <h3>Water Quality (STREAM)</h3>
-            </a>
-            <a href="ARSET CERTIFICATE - GEDI_62.pdf" target="_blank" class="card">
-                <img src="preview-gedi.jpg" alt="GEDI Preview">
-                <h3>Spaceborne LiDAR (GEDI)</h3>
-            </a>
-            <a href="ARSET CERTIFICATE - Lidar_387.pdf" target="_blank" class="card">
-                <img src="preview-lidar.jpg" alt="Lidar Preview">
-                <h3>Air Quality Applications</h3>
-            </a>
+        <h2 style="color: var(--primary); margin-bottom: 20px;">Certifications</h2>
+        
+        <div class="sub-nav">
+            <button class="sub-btn active" onclick="filterCert('nasa')">NASA ARSET</button>
+            <button class="sub-btn" onclick="filterCert('lomba')">Awards/Lomba</button>
+            <button class="sub-btn" onclick="filterCert('bahasa')">Language</button>
         </div>
 
-        <h3 class="sub-category"><i class="fas fa-trophy"></i> Awards & Language</h3>
-        <div class="grid">
-            <a href="lomba-mengkarang.pdf" target="_blank" class="card">
-                <img src="preview-mengkarang.jpg" alt="Award Preview">
-                <h3>1st Place - Mengkarang 2025</h3>
-            </a>
-            <a href="sertif-kij.pdf" target="_blank" class="card">
-                <img src="preview-kij.jpg" alt="KIJ Preview">
+        <div id="nasa" class="cert-group active">
+            <div class="card" onclick="openPDF('ARSET CERTIFICATE - GEDI_62.pdf')">
+                <h3>GEDI LiDAR Training</h3>
+                <p>Spaceborne LiDAR for Monitoring Vegetation.</p>
+            </div>
+            <div class="card" onclick="openPDF('ARSET CERTIFICATE - STREAM_391.pdf')">
+                <h3>STREAM Water Quality</h3>
+                <p>NASA ARSET Training experience.</p>
+            </div>
+            <div class="card" onclick="openPDF('ARSET CERTIFICATE - Lidar_387.pdf')">
+                <h3>Air Quality Application</h3>
+                <p>NASA ARSET Training experience.</p>
+            </div>
+        </div>
+
+        <div id="lomba" class="cert-group">
+            <div class="card" onclick="openPDF('lomba-mengkarang.pdf')">
+                <h3>Juara 1 Mengkarang 2025</h3>
+                <p>Esai Nasional: Fosil dan Geoheritage.</p>
+            </div>
+        </div>
+
+        <div id="bahasa" class="cert-group">
+            <div class="card" onclick="openPDF('sertif-kij.pdf')">
                 <h3>English Camp - KIJ</h3>
-            </a>
+                <p>Kampung Inggris English Proficiency.</p>
+            </div>
         </div>
     </section>
 
     <section id="organization" class="page-content">
-        <h2 class="section-title">Organization</h2>
+        <h2 style="color: var(--primary); margin-bottom: 30px;">Organizational Experience</h2>
         <div class="grid">
             <div class="card">
                 <img src="hmtgm-logo.jpg" alt="HMTGM">
                 <h3>Vice Head of R&D - HMTGM</h3>
-                <p style="font-size: 0.85rem; color: #bbb;">Managing drone-based mapping, student matriculation, and survey instrument training.</p>
+                <p style="font-size: 0.8rem; color: #ccc;">Mengelola program Library Geomatika dan pelatihan instrumen survey.</p>
             </div>
             <div class="card">
                 <img src="gsdc-logo.jpg" alt="GSDC">
-                <h3>Staff Fieldtrip - GSDC</h3>
-                <p style="font-size: 0.85rem; color: #bbb;">Person in charge (PJ) for Drone Mapping projects and photogrammetric workshops.</p>
+                <h3>Fieldtrip Staff - GSDC</h3>
+                <p style="font-size: 0.8rem; color: #ccc;">PJ Program Lapangan Drone dan pengolahan data fotogrametri.</p>
             </div>
             <div class="card">
                 <img src="dem-logo.jpg" alt="DEM">
-                <h3>Staff HRD - DEM UPNVY</h3>
-                <p style="font-size: 0.85rem; color: #bbb;">Responsible for monthly performance reports and internal human resource administration.</p>
+                <h3>HRD Staff - DEM UPNVY</h3>
+                <p style="font-size: 0.8rem; color: #ccc;">Manajemen performa 92 anggota melalui laporan bulanan.</p>
             </div>
         </div>
     </section>
@@ -182,7 +225,37 @@ Currently, I am open to opportunities in internships, research, and collaborativ
             document.getElementById(pageId).classList.add('active');
             document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
             document.getElementById('link-' + pageId).classList.add('active');
-            window.scrollTo(0,0);
+        }
+
+        function filterCert(groupId) {
+            document.querySelectorAll('.cert-group').forEach(g => g.classList.remove('active'));
+            document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(groupId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Modal Viewer Functions
+        const viewer = document.getElementById('viewer');
+        const frame = document.getElementById('frame-view');
+        const imgView = document.getElementById('img-view');
+
+        function openPDF(file) {
+            frame.src = file;
+            frame.style.display = "block";
+            imgView.style.display = "none";
+            viewer.style.display = "flex";
+        }
+
+        function openImg(file) {
+            imgView.src = file;
+            imgView.style.display = "block";
+            frame.style.display = "none";
+            viewer.style.display = "flex";
+        }
+
+        function closeViewer() {
+            viewer.style.display = "none";
+            frame.src = "";
         }
     </script>
 </body>
