@@ -10,67 +10,71 @@
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: #0b1a10; 
-            color: #fff; 
-            overflow: hidden; /* Mencegah scroll utama agar terasa seperti ganti halaman */
-        }
+        body { font-family: 'Inter', sans-serif; background: #0b1a10; color: #fff; overflow: hidden; }
 
-        /* Navbar Tetap */
+        /* Navbar */
         .navbar { 
             position: fixed; width: 100%; padding: 20px; 
             background: rgba(11, 26, 16, 0.95); z-index: 100; 
             text-align: center; border-bottom: 1px solid rgba(167, 233, 194, 0.1);
         }
-        .nav-links a { 
-            color: #A7E9C2; text-decoration: none; margin: 0 15px; 
-            font-weight: 600; cursor: pointer; transition: 0.3s; 
-        }
-        .nav-links a.active { color: #fff; text-decoration: underline; }
+        .nav-links a { color: #A7E9C2; text-decoration: none; margin: 0 15px; font-weight: 600; cursor: pointer; }
+        .nav-links a.active { color: #fff; border-bottom: 2px solid #A7E9C2; }
 
-        /* Container Halaman */
+        /* Page System */
         .page-content { 
-            display: none; /* Sembunyikan semua halaman secara default */
-            height: 100vh; padding: 100px 10%; 
-            flex-direction: column; justify-content: center;
-            animation: fadeIn 0.5s ease-in-out;
+            display: none; height: 100vh; padding: 100px 10% 50px; 
+            flex-direction: column; animation: fadeIn 0.5s ease-in-out;
         }
-        .page-content.active { display: flex; } /* Tampilkan hanya yang aktif */
+        .page-content.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Home Layout (Foto di Samping) */
+        .home-layout { display: flex; align-items: flex-start; gap: 40px; }
+        .hero-text { flex: 2; }
+        .hero-image { flex: 1; text-align: center; }
+        .main-photo { width: 100%; max-width: 250px; border-radius: 15px; border: 3px solid #A7E9C2; }
+
+        /* Slider Dokumentasi */
+        .doc-slider-container { margin-top: 30px; width: 100%; }
+        .slider-wrapper { 
+            display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px;
+            scroll-snap-type: x mandatory; scrollbar-width: thin;
         }
+        .slider-item { 
+            min-width: 200px; height: 150px; background: #162d1e; 
+            border-radius: 10px; scroll-snap-align: start; flex-shrink: 0;
+            overflow: hidden; border: 1px solid #333;
+        }
+        .slider-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Hero Styling */
-        .hero-container { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
-        .moving-name { font-size: 3rem; color: #A7E9C2; }
-        .main-photo { width: 280px; border-radius: 20px; border: 4px solid #A7E9C2; }
-
-        /* Grid & Cards */
-        .section-title { font-size: 2.2rem; margin-bottom: 30px; color: #A7E9C2; text-align: center; }
+        /* Grid & Preview PDF */
         .grid-container { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 20px; overflow-y: auto; max-height: 70vh; padding-right: 10px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 20px; overflow-y: auto; padding-bottom: 20px;
         }
-        
         .card { 
-            background: #162d1e; border-radius: 12px; padding: 20px; 
+            background: #162d1e; border-radius: 12px; padding: 15px; 
             border: 1px solid rgba(167, 233, 194, 0.1); text-decoration: none; color: inherit;
         }
-        .card h3 { font-size: 1.1rem; color: #fff; margin-bottom: 5px; }
-        .card .date { font-size: 0.75rem; color: #A7E9C2; font-weight: 800; display: block; margin-bottom: 10px; }
-        .view-btn { display: inline-block; margin-top: 10px; font-size: 0.7rem; color: #A7E9C2; border: 1px solid #A7E9C2; padding: 4px 8px; border-radius: 4px; }
+        .pdf-preview { 
+            width: 100%; height: 120px; background: #0b1a10; 
+            border-radius: 8px; margin-bottom: 12px; display: flex;
+            align-items: center; justify-content: center; overflow: hidden;
+        }
+        .pdf-preview img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
 
-        /* Scrollbar Styling */
-        .grid-container::-webkit-scrollbar { width: 5px; }
-        .grid-container::-webkit-scrollbar-thumb { background: #A7E9C2; border-radius: 10px; }
+        h2 { color: #A7E9C2; margin-bottom: 20px; }
+        .date { font-size: 0.7rem; color: #A7E9C2; font-weight: bold; }
+
+        /* Scrollbar */
+        .slider-wrapper::-webkit-scrollbar, .grid-container::-webkit-scrollbar { height: 6px; width: 4px; }
+        .slider-wrapper::-webkit-scrollbar-thumb, .grid-container::-webkit-scrollbar-thumb { background: #A7E9C2; border-radius: 10px; }
 
         @media (max-width: 768px) {
             body { overflow-y: auto; }
-            .page-content { height: auto; padding-top: 120px; }
-            .hero-container { flex-direction: column-reverse; text-align: center; }
+            .home-layout { flex-direction: column-reverse; align-items: center; }
+            .page-content { height: auto; }
         }
     </style>
 </head>
@@ -86,11 +90,25 @@
     </nav>
 
     <section id="home" class="page-content active">
-        <div class="hero-container">
+        <div class="home-layout">
             <div class="hero-text">
-                <h1 class="moving-name">Yuliana Berlianti</h1>
-                <p style="font-weight: 600; color: #A7E9C2;">Geomatics Engineering Student</p>
-                <p style="color: #ccc; margin-top: 15px; line-height: 1.6;">University student pursuing a degree in a geospatial-related technical field. I specialize in GIS, remote sensing, and satellite imagery analysis.</p>
+                <h1 style="font-size: 2.5rem; color: #A7E9C2;">Yuliana Berlianti</h1>
+                <p style="font-weight: 600;">Geomatics Engineering Student</p>
+                <p style="color: #ccc; margin: 15px 0; font-size: 0.9rem; line-height: 1.5;">
+                    Student in Geomatics Engineering focusing on GIS and remote sensing. 
+                    I have experience in monitoring methane emissions and aerial photography analysis.
+                </p>
+
+                <h3>Field Documentation</h3>
+                <div class="doc-slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slider-item"><img src="doc1.jpg" alt="Drone Mapping"></div>
+                        <div class="slider-item"><img src="doc2.jpg" alt="Surveying"></div>
+                        <div class="slider-item"><img src="doc3.jpg" alt="GSDC Activity"></div>
+                        <div class="slider-item"><img src="doc4.jpg" alt="Fieldwork"></div>
+                    </div>
+                    <p style="font-size: 0.7rem; color: #666; margin-top: 5px;">← Slide to see more →</p>
+                </div>
             </div>
             <div class="hero-image">
                 <img src="profile.jpg" alt="Profile" class="main-photo">
@@ -98,82 +116,48 @@
         </div>
     </section>
 
-    <section id="projects" class="page-content">
-        <h2 class="section-title">My Projects</h2>
-        <div class="grid-container">
-            <div class="card">
-                <span class="date">Ongoing Project</span>
-                <h3>Meth-Trace Methodology</h3>
-                <p>Developing a research methodology for monitoring methane emissions using Sentinel satellite data and Google Earth Engine (GEE).</p>
-            </div>
-            <div class="card">
-                <span class="date">March 2026</span>
-                <h3>DEM Generation - PCI Geomatica</h3>
-                <p>Technical lab project focused on generating Digital Elevation Models (DEM) from aerial photography.</p>
-            </div>
-        </div>
-    </section>
-
     <section id="certifications" class="page-content">
-        <h2 class="section-title">Certifications</h2>
+        <h2>Professional Certificates</h2>
         <div class="grid-container">
             <a href="ARSET CERTIFICATE - STREAM_391.pdf" target="_blank" class="card">
+                <div class="pdf-preview">
+                    <img src="preview-stream.jpg" alt="STREAM Preview">
+                </div>
                 <span class="date">Feb 2026</span>
                 <h3>NASA ARSET: STREAM</h3>
-                <p>Monitoring Water Quality in Lakes and Coastal Regions Using STREAM.</p>
-                <span class="view-btn">VIEW PDF</span>
+                <p style="font-size: 0.8rem; color: #bbb;">Water Quality Monitoring.</p>
             </a>
+
             <a href="ARSET CERTIFICATE - GEDI_62.pdf" target="_blank" class="card">
+                <div class="pdf-preview">
+                    <img src="preview-gedi.jpg" alt="GEDI Preview">
+                </div>
                 <span class="date">Nov 2025</span>
                 <h3>NASA ARSET: GEDI</h3>
-                <p>Spaceborne LiDAR for Monitoring Vegetation Structure and Biomass.</p>
-                <span class="view-btn">VIEW PDF</span>
+                <p style="font-size: 0.8rem; color: #bbb;">Spaceborne LiDAR analysis.</p>
             </a>
-            <a href="ARSET CERTIFICATE - Lidar_387.pdf" target="_blank" class="card">
-                <span class="date">Jun 2025</span>
-                <h3>NASA ARSET: Air Quality</h3>
-                <p>LiDAR profiling satellite observations for air quality applications.</p>
-                <span class="view-btn">VIEW PDF</span>
+
+            <a href="Juara 3_Essai ITENAS Bandung_Yulianan Berlianti.pdf" target="_blank" class="card">
+                <div class="pdf-preview">
+                    <img src="preview-itenas.jpg" alt="ITENAS Preview">
+                </div>
+                <span class="date">Dec 2024</span>
+                <h3>3rd Place - ITENAS</h3>
+                <p style="font-size: 0.8rem; color: #bbb;">Digital innovation for landslides.</p>
             </a>
         </div>
     </section>
 
-    <section id="organization" class="page-content">
-        <h2 class="section-title">Organizations</h2>
-        <div class="grid-container">
-            <div class="card">
-                <span class="date">2025 - Present</span>
-                <h3>Vice Head of R&D</h3>
-                <p>Himpunan Mahasiswa Teknik Geomatika UPN "Veteran" Yogyakarta (HMTGM).</p>
-            </div>
-            <div class="card">
-                <span class="date">Active Member</span>
-                <h3>Staff Departemen HRD</h3>
-                <p>Dewan Energi Mahasiswa (DEM), bertanggung jawab atas proker rapor bulanan.</p>
-            </div>
-            <div class="card">
-                <span class="date">Active Member</span>
-                <h3>Staff Divisi Fieldtrip</h3>
-                <p>Geology Student Discussion Club (GSDC) sebagai penanggung jawab proker Lapangan Drone.</p>
-            </div>
-        </div>
-    </section>
+    <section id="projects" class="page-content"><h2>My Projects</h2><div class="grid-container"></div></section>
+    <section id="organization" class="page-content"><h2>Organizations</h2><div class="grid-container"></div></section>
 
     <script>
         function showPage(pageId) {
-            // Sembunyikan semua halaman
-            const pages = document.querySelectorAll('.page-content');
-            pages.forEach(page => page.classList.remove('active'));
-
-            // Tampilkan halaman yang dipilih
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
-
-            // Update status menu aktif
-            const links = document.querySelectorAll('.nav-links a');
-            links.forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
             document.getElementById('link-' + pageId).classList.add('active');
         }
     </script>
-
 </body>
 </html>
